@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="Books.css" />
+    <title>Books</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="block-click"></div>
+      <div class="block-click"></div>
+    </div>
+
+    <script>
+      const turned = "turned";
+      let rightActive = 20;
+      let leftActive = rightActive + 1;
+      const container = document.getElementById("container");
+
+      const toActive = (div, tempo) => {
+        if (div) {
+          div.style.zIndex = tempo ? tempo : 3;
+          setTimeout(() => {
+            div.style.zIndex = 2;
+          }, 1000);
+        }
+      };
+
+      const toUnActive = (div, tempo) => {
+        if (div) {
+          div.style.zIndex = tempo ? tempo : 1;
+          setTimeout(() => {
+            div.style.zIndex = 0;
+          }, 1000);
+        }
+      };
+
+      const onClickRight = () => {
+        if (rightActive > 0) {
+          const rightActivePage = document.getElementById(`${rightActive}`);
+          const leftActivePage = document.getElementById(`${leftActive}`);
+
+          // Deactive 2 trang ko xem nữa
+          toUnActive(rightActivePage);
+          toUnActive(leftActivePage);
+
+          // Active 2 trang mới
+          const nextDiv = rightActivePage.previousElementSibling;
+          const nextNextDiv =
+            rightActive > 2 ? nextDiv.previousElementSibling : null;
+          toActive(nextDiv);
+          toActive(nextNextDiv);
+
+          // Animation lật
+          rightActivePage && rightActivePage.classList.add(turned);
+          nextDiv && nextDiv.classList.add(turned);
+
+          // Set current active mới
+          rightActive = rightActive - 2;
+          leftActive = leftActive - 2;
+        }
+      };
+
+      const onClickLeft = () => {
+        if (leftActive < 20) {
+          const rightActivePage = document.getElementById(`${rightActive}`);
+          const leftActivePage = document.getElementById(`${leftActive}`);
+
+          // Deactive 2 trang ko xem nữa
+          toUnActive(rightActivePage);
+          toUnActive(leftActivePage);
+
+          // Active 2 trang mới
+          const nextDiv = leftActivePage.nextElementSibling;
+          const nextNextDiv = nextDiv.nextElementSibling;
+          toActive(nextDiv);
+          toActive(nextNextDiv);
+
+          // Animation lật
+          leftActivePage && leftActivePage.classList.remove(turned);
+          nextDiv && nextDiv.classList.remove(turned);
+
+          // Set current active mới
+          rightActive = rightActive + 2;
+          leftActive = leftActive + 2;
+        }
+      };
+
+      // Gán action lật trang cho block page
+      const blockClicks = document.getElementsByClassName("block-click");
+      if (blockClicks.length === 2) {
+        blockClicks[0].addEventListener("click", onClickLeft);
+        blockClicks[1].addEventListener("click", onClickRight);
+      }
+
+      // Set ID cho trang
+      for (let i = 1; i <= 20; i++) {
+        const newPage = document.createElement("div");
+        newPage.id = i;
+        newPage.classList.add("page");
+        if (i === 20) newPage.style.zIndex = 2;
+        newPage.innerText = i;
+        container.appendChild(newPage);
+      }
+    </script>
+  </body>
+</html>

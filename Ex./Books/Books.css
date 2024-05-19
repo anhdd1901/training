@@ -1,0 +1,80 @@
+html {
+  font-size: 1px;
+}
+
+body {
+  margin: 0;
+}
+
+#container {
+  position: absolute;
+  perspective: 3000px;
+
+  top: 20vh;
+  left: calc(50vw - 300rem);
+  line-height: 300rem;
+  width: 600rem;
+  aspect-ratio: 2/1;
+
+  display: flex;
+}
+
+.block-click {
+  width: inherit;
+  aspect-ratio: 1/1;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.page {
+  aspect-ratio: 1/1;
+  width: 50%;
+  /* Content */
+  text-align: center;
+  font-size: 16rem;
+  border: 2rem solid black;
+  background-color: #5bbfd9;
+  line-height: inherit;
+
+  /* 3D effect */
+  transform-style: preserve-3d;
+  transition: all 0.9s ease;
+
+  /* Set position */
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.page:nth-child(even) {
+  transform-origin: 0;
+  left: calc(50% + 2rem);
+}
+
+.page:nth-child(odd) {
+  transform: rotateY(180deg);
+  transform-origin: 100%;
+}
+
+.turned:nth-child(odd) {
+  transform: rotateY(0deg);
+}
+
+.turned:nth-child(even) {
+  transform: rotateY(-180deg);
+}
+
+/* Turn right page */
+/* Left to active : 0 => 3 => 2 */
+/* Right to active : 0 => 3 => 2 */
+/* Right to active : 0 => 3 => 4 => 2 */
+
+/* Left to un-active : 2 => 1 => 0 */
+/* Right to un-active : 2 => 4 => 0 */
+
+/* Turn left page */
+/* Left to active : 0 => 2 */
+/* Right to active : 0 => 4 => 2 */
+/* Right to active : 0 => 4 => 1 => 2 */
+
+/* Left to un-active : 2 => 3 => 0 */
+/* Right to un-active : 2 => 3 => 0 */

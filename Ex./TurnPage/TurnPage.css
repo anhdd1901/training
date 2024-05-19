@@ -1,0 +1,60 @@
+html {
+  font-size: 1px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  margin: 0;
+}
+
+.container {
+  position: absolute;
+  top: 30vh;
+  left: calc((100vw - 250rem) / 2);
+  width: 250rem;
+  height: 300rem;
+  background-image: url("./assets/cover.jpg");
+  background-size: cover;
+  perspective: 1000px;
+  transform: translate(-50%, -50%);
+  border: 1px solid gray;
+}
+
+.cover {
+  position: absolute;
+  top: 0;
+  width: 210rem;
+  height: inherit;
+  left: 40rem;
+  background-color: blue;
+  transform: rotateY(-20deg);
+  transform-style: preserve-3d;
+  transform-origin: left;
+  transition: all 1.5s ease-in-out;
+}
+
+.cover:hover {
+  transform: rotateY(-180deg);
+}
+
+figure {
+  margin: 0;
+  display: block;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  backface-visibility: hidden;
+}
+
+.front {
+  background-image: url(./assets/page1.webp);
+  background-size: cover;
+}
+
+.back {
+  background-image: url(./assets/page2.jpg);
+  background-size: cover;
+  transform: rotateY(180deg);
+}
